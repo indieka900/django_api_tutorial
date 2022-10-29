@@ -2,8 +2,8 @@ from django.shortcuts import redirect
 from django.http import JsonResponse
 from rest_framework.decorators import api_view,APIView
 from rest_framework.response import Response
-from .models import Advocate
-from .serilizers import AdvocateSerilizer
+from .models import Advocate, Company
+from .serilizers import AdvocateSerilizer, CompanySerilizer
 from django.db.models import Q
 
 
@@ -87,3 +87,9 @@ class Advocate_detail(APIView):
 
 
 # Create your views here.
+
+@api_view(['GET'])
+def company_list(request):
+    companies = Company.objects.all()
+    serializer = CompanySerilizer(companies, many=True)
+    return Response(serializer.data)
