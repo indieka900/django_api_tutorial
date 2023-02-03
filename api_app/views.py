@@ -1,8 +1,9 @@
 from django.shortcuts import redirect
 from django.http import JsonResponse
-from rest_framework.decorators import api_view,APIView
+from rest_framework.decorators import api_view,APIView,permission_classes
 from rest_framework.response import Response
 from .models import Advocate, Company
+from rest_framework.permissions import IsAuthenticated
 from .serilizers import AdvocateSerilizer, CompanySerilizer
 from django.db.models import Q
 
@@ -12,7 +13,9 @@ def endpoints(request):
     data = ['/advocates', 'advocates/username']
     return Response(data)
 
+
 @api_view(['GET','POST'])
+@permission_classes([IsAuthenticated])
 def advocate_list(request):
     #data = ['Joseph', 'Ali_nyo', 'Indieka']
     if request.method == 'GET':
@@ -85,8 +88,6 @@ class Advocate_detail(APIView):
         data.delete()
         return Response('advocate was deleted')
 
-
-# Create your views here.
 
 @api_view(['GET'])
 def company_list(request):
