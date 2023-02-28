@@ -15,7 +15,7 @@ def endpoints(request):
 
 
 @api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def advocate_list(request):
     #data = ['Joseph', 'Ali_nyo', 'Indieka']
     if request.method == 'GET':
